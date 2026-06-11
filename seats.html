@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkyWings · Seat Selection</title>
+  <link rel="stylesheet" href="seats.css">
+  <script defer src="app.js"></script>
+</head>
+<body data-page="seats">
+  <header class="site-header">
+    <a class="brand" href="index.html">✈ SkyWings</a>
+    <nav class="nav">
+  <a href="index.html">Home</a>
+  <a href="destinations.html">Destinations</a>
+  <a href="tickets.html">Tickets</a>
+  <a href="food.html">Food</a>
+  <a href="seats.html">Seats</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+
+  <!-- Add these two: -->
+  <a href="login.html" id="navLogin">Login</a>
+  <a href="#" id="navLogout" hidden>Logout</a>
+</nav>
+  </header>
+
+  <main class="wrap">
+    <h1>Select Your Seat</h1>
+    <p class="sub">Business = rows A–B · Economy = rows C–F · Click seats to select.</p>
+
+    <section class="seat-layout">
+      <div class="cabin" id="cabin"></div>
+
+      <aside class="side">
+        <div class="summary card">
+          <h3>Summary</h3>
+          <p id="routeLine" class="muted"></p>
+          <ul id="selectedList" class="sel-list"></ul>
+
+          <div class="totals">
+            <div><span>Base fare total</span><strong id="baseTotal">$0</strong></div>
+            <div><span>Seat fees</span><strong id="feesTotal">$0</strong></div>
+            <div class="grand"><span>Grand total</span><strong id="grandTotal">$0</strong></div>
+          </div>
+
+          <div class="actions">
+            <button id="toFood" class="btn primary">Continue to Food</button>
+            <button id="clearSel" class="btn">Clear Selection</button>
+          </div>
+
+          <p id="seatOutput" class="out" aria-live="polite"></p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> SkyWings Airline</p>
+  </footer>
+</body>
+</html>

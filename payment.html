@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkyWings · Payment</title>
+  <link rel="stylesheet" href="payment.css">
+
+  <!-- QR code library (must be before app.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
+  <!-- Your app -->
+  <script defer src="app.js"></script>
+</head>
+<body data-page="payment">
+  <header class="site-header no-print">
+    <a class="brand" href="index.html">✈ SkyWings</a>
+    <nav class="nav">
+  <a href="index.html">Home</a>
+  <a href="destinations.html">Destinations</a>
+  <a href="tickets.html">Tickets</a>
+  <a href="food.html">Food</a>
+  <a href="seats.html">Seats</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+
+  <!-- Add these two: -->
+  <a href="login.html" id="navLogin">Login</a>
+  <a href="#" id="navLogout" hidden>Logout</a>
+</nav>
+  </header>
+
+  <main class="wrap">
+    <h1 class="no-print">Payment</h1>
+    <p class="sub no-print">Review your order and complete the payment.</p>
+
+    <section class="layout no-print">
+      <!-- Order Summary -->
+      <aside class="card order">
+        <h3>Order Summary</h3>
+        <p id="routeLine" class="muted"></p>
+
+        <ul id="orderList" class="order-list"></ul>
+
+        <div class="totals">
+          <div><span>Base fare total</span><strong id="baseTotal">$0</strong></div>
+          <div><span>Seat fees</span><strong id="feesTotal">$0</strong></div>
+          <div class="grand"><span>Grand total</span><strong id="grandTotal">$0</strong></div>
+        </div>
+      </aside>
+
+      <!-- Payment Form -->
+      <section class="card pay">
+        <h3>Billing &amp; Payment</h3>
+
+        <form id="paymentForm" class="form" novalidate>
+          <div class="grid">
+            <label>Full Name
+              <input id="billName" name="name" placeholder="Your name" required>
+            </label>
+            <label>Email
+              <input id="billEmail" name="email" type="email" placeholder="you@example.com" required>
+            </label>
+          </div>
+
+          <div class="grid">
+            <label>Card Number
+              <input id="cardNumber" name="card" inputmode="numeric" maxlength="19" placeholder="4242 4242 4242 4242" required>
+            </label>
+            <label>Expiry (MM/YY)
+              <input id="cardExpiry" name="expiry" inputmode="numeric" maxlength="5" placeholder="12/28" required>
+            </label>
+            <label>CVC
+              <input id="cardCvc" name="cvc" inputmode="numeric" maxlength="4" placeholder="123" required>
+            </label>
+          </div>
+
+          <label class="chk">
+            <input type="checkbox" id="agree" required>
+            <span>I agree to the Terms &amp; Privacy Policy</span>
+          </label>
+
+          <div class="actions">
+            <button class="btn" type="button" id="cancelPay">Cancel</button>
+            <button class="btn primary" id="payNow" type="submit">Pay Now</button>
+          </div>
+
+          <p id="payStatus" class="status" aria-live="polite"></p>
+        </form>
+
+        <!-- Success state -->
+        <div id="successBox" class="success" hidden>
+          <h3>Payment Successful 🎉</h3>
+          <p>Your booking reference (PNR): <strong id="pnrCode"></strong></p>
+          <p>We’ve sent a confirmation receipt to <strong id="confEmail"></strong>.</p>
+          <div class="actions">
+            <a class="btn" href="index.html">Back to Home</a>
+            <a class="btn" href="tickets.html">Book another flight</a>
+            <button class="btn" id="printReceipt">Print Invoice</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Printable Invoice -->
+    <section id="invoice" class="invoice" hidden aria-hidden="true">
+      <header class="invoice__head">
+        <div class="invoice__brand">
+          <div class="logo">✈</div>
+          <div>
+            <h2>SkyWings Airline</h2>
+            <p class="muted">www.skywings.example • support@skywings.example</p>
+          </div>
+        </div>
+        <div class="invoice__meta">
+          <div><span>Invoice #</span><strong id="invNumber">INV-</strong></div>
+          <div><span>Invoice Date</span><strong id="invDate"></strong></div>
+          <div><span>PNR</span><strong id="invPNR"></strong></div>
+        </div>
+      </header>
+
+      <section class="invoice__parties">
+        <div class="party">
+          <h4>Bill To</h4>
+          <p id="invBillToName"></p>
+          <p id="invBillToEmail" class="muted"></p>
+        </div>
+        <div class="party">
+          <h4>Flight</h4>
+          <p id="invRoute"></p>
+          <p id="invFlightMeta" class="muted"></p>
+        </div>
+      </section>
+
+      <table class="invoice__items" role="table" aria-label="Invoice line items">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th class="num">Qty</th>
+            <th class="num">Unit</th>
+            <th class="num">Amount</th>
+          </tr>
+        </thead>
+        <tbody id="invItems"><!-- Filled by JS --></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="lbl">Subtotal</td>
+            <td class="num" id="invSubtotal">$0</td>
+          </tr>
+          <tr>
+            <td colspan="3" class="lbl">Seat Fees</td>
+            <td class="num" id="invSeatFees">$0</td>
+          </tr>
+          <tr class="grand">
+            <td colspan="3" class="lbl">Grand Total</td>
+            <td class="num" id="invGrand">$0</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <section class="invoice__pay">
+        <div><span>Payment Method</span><strong id="invPayMethod">Card</strong></div>
+        <div><span>Paid On</span><strong id="invPaidOn"></strong></div>
+      </section>
+      <p class="invoice__note muted">
+        Thank you for choosing SkyWings. This is a system-generated invoice for your records.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer no-print">
+    <p>© <span id="year"></span> SkyWings Airline</p>
+  </footer>
+</body>
+</html>

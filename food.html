@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkyWings · Food Menu</title>
+  <link rel="stylesheet" href="food.css">
+  <script defer src="app.js"></script>
+</head>
+<body data-page="food">
+  <header class="site-header">
+    <a class="brand" href="index.html">✈ SkyWings</a>
+    <nav class="nav">
+  <a href="index.html">Home</a>
+  <a href="destinations.html">Destinations</a>
+  <a href="tickets.html">Tickets</a>
+  <a href="food.html">Food</a>
+  <a href="seats.html">Seats</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+
+  <!-- Add these two: -->
+  <a href="login.html" id="navLogin">Login</a>
+  <a href="#" id="navLogout" hidden>Logout</a>
+</nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>In‑Flight Menu</h1>
+      <p>Freshly prepared. Pre‑order your favorite meals.</p>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <p id="seatGuardMsg" class="guard" hidden>Seats are required before ordering food. Redirecting…</p>
+
+    <section class="menu">
+      <article class="item">
+        <img src="cr.jpg" alt="">
+        <div class="details">
+          <h3>Chicken Rice</h3>
+          <p>Roasted chicken, jasmine rice, seasonal greens.</p>
+          <div class="bar">
+            <span class="price" data-price="9.50">$9.50</span>
+            <button class="btn add" data-item="Chicken Rice" data-price="9.50">Add</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="item">
+        <img src="bnp.jpg" alt="">
+        <div class="details">
+          <h3>Beef Noodles</h3>
+          <p>Udon noodles with braised beef and veggies.</p>
+          <div class="bar">
+            <span class="price" data-price="10.50">$10.50</span>
+            <button class="btn add" data-item="Beef Noodles" data-price="10.50">Add</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="item">
+        <img src="ff.jpg" alt="">
+        <div class="details">
+          <h3>Fried Fish</h3>
+          <p>Crispy fillet with lemon butter and salad.</p>
+          <div class="bar">
+            <span class="price" data-price="10.00">$10.00</span>
+            <button class="btn add" data-item="Fried Fish" data-price="10.00">Add</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="item">
+        <img src="vg.jpg" alt="">
+        <div class="details">
+          <h3>Vegetarian Meal</h3>
+          <p>Grilled veggies, chickpeas, herb couscous.</p>
+          <div class="bar">
+            <span class="price" data-price="8.50">$8.50</span>
+            <button class="btn add" data-item="Vegetarian Meal" data-price="8.50">Add</button>
+          </div>
+        </div>
+      </article>
+       <article class="item">
+        <img src="lj.jpg" alt="">
+        <div class="details">
+          <h3>Orange Juice</h3>
+          <p>Fresh orange, good taste, 100% Organic.</p>
+          <div class="bar">
+            <span class="price" data-price="2.50">$2.50</span>
+            <button class="btn add" data-item="Lemon juice" data-price="2.50">Add</button>
+          </div>
+        </div>
+      </article>
+      <article class="item">
+        <img src="bs.jpg" alt="">
+        <div class="details">
+          <h3>Burmese Snacks</h3>
+          <p>Traditional Snacks,Foods and Drink.So Yummy!</p>
+          <div class="bar">
+            <span class="price" data-price="0">Free Flow!</span>
+            <button class="btn add" data-item="Burmese Snacks " data-price="0">Add</button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <aside class="cart">
+      <h3>Your Pre‑Order</h3>
+      <ul id="cartList"></ul>
+      <div class="cart-actions">
+        <button id="clearCart" class="btn">Clear</button>
+        <button id="toPaymentFromFood" class="btn primary">Proceed to Payment</button>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> SkyWings Airline</p>
+  </footer>
+</body>
+</html>
