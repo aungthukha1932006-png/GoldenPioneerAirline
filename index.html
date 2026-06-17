@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkyWings Airline · Home</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="app.js" defer></script>
+</head>
+<body data-page="home">
+  <header class="site-header">
+    <a class="brand" href="index.html">✈ SkyWings</a>
+   <nav class="nav">
+  <a href="index.html">Home</a>
+  <a href="destinations.html">Destinations</a>
+  <a href="tickets.html">Tickets</a>
+  <a href="food.html">Food</a>
+  <a href="seats.html">Seats</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+
+  <!-- Add these two: -->
+  <a href="login.html" id="navLogin">Login</a>
+  <a href="#" id="navLogout" hidden>Logout</a>
+</nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="overlay">
+        <h1>Fly Further. Fly Smarter.</h1>
+        <p>Comfort, safety, and award‑winning service—wherever life takes you.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="signup.html">Sign up</a>
+          <a class="btn" href="destinations.html">Explore Destinations</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <article class="card">
+        <h3>Flexible Tickets</h3>
+        <p>Change or cancel with ease on eligible fares.</p>
+      </article>
+      <article class="card">
+        <h3>Premium Comfort</h3>
+        <p>Extra legroom and next‑gen cabin design.</p>
+      </article>
+      <article class="card">
+        <h3>Global Network</h3>
+        <p>100+ destinations across 5 continents.</p>
+      </article>
+    </section>
+
+    <section class="strip">
+      <div class="strip-inner">
+        <h2>Ready for takeoff?</h2>
+        <p>Search the best fares now.</p>
+        <a class="btn primary" href="tickets.html">Search Flights</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> SkyWings Airline</p>
+  </footer>
+</body>
+</html>
